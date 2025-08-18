@@ -76,8 +76,6 @@ The  kubelet is now restarting every few seconds, as it waits in a crashloop for
 ## Creating a cluster with kubeadm
 
 ```bash
-# Enable IP forwarding
-
 # Initialize the cluster (take special note of the output join command)
 sudo kubeadm init
 
@@ -86,8 +84,8 @@ mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-# Now install the networking plugin (weave in this case)
-kubectl apply -f https://reweave.azurewebsites.net/k8s/v1.33/net.yaml
+# Now install the network plugin (lightweight flannel in this case)
+kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
 ```
 
 ## Join the cluster
@@ -97,3 +95,25 @@ On node-two (the worker node), run the command that was output by `kubeadm init`
 ```bash
 kubeadm join <ip-addr>:6443 --token <token> \
         --discovery-token-ca-cert-hash <hash>
+```
+
+You should see a message like so:
+
+```bash
+This node has joined the cluster:
+* Certificate signing request was sent to apiserver and a response was received.
+* The Kubelet was informed of the new secure connection details.
+```
+
+If you navigate back to the master node ('node-one') and run:
+
+```bash
+kubectl get nodes
+```
+
+You should see both nodes listed as part of the cluster:
+
+```bash
+NAME       STATUS   ROLES           AGE     VERSION
+node-one   Ready    control-plane   10m     v1.30.14
+node-two   Ready    <none>          3m18s   v1.30.14
