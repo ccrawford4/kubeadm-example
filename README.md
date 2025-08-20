@@ -4,7 +4,7 @@
 
 (Recommended to run each command one by one to catch any errors)
 
-## Installation
+## Installation (on each node)
 
 ```bash
 # SSH into each node
@@ -38,6 +38,14 @@ sudo tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.7.1.tgz
 # Make the containerd config directory and generate the default config file
 sudo mkdir -p /etc/containerd/
 sudo sh -c 'containerd config default > /etc/containerd/config.toml'
+```
+
+## Installation (on each node - tmux users)
+
+Note: this script assumes you opened your node-1 on window 1 and node-2 on window 2 in tmux.
+
+```bash
+./scripts/init.sh
 ```
 
 Then use these commands to modify the config file for versions 2.x:
