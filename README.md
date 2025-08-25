@@ -11,7 +11,7 @@ cd terraform/stacks/vms
 
 # Initialize, plan, and apply
 terraform init
-terraform plan -o plan.out
+terraform plan -out plan.out
 terraform apply plan.out
 ```
 
