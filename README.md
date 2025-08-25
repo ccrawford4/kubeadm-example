@@ -34,7 +34,7 @@ git clone https://github.com/ccrawford4/k8s.git && cd k8s
 
 # Steps for installing Kubernetes on Debian
 
-## CNI Installation
+## Container Runtime Installation
 
 ```bash
 # in the root directory
@@ -44,7 +44,11 @@ git clone https://github.com/ccrawford4/k8s.git && cd k8s
 Then use these commands to modify the config file for versions 2.x:
 <https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd-systemd>
 
-Then use this to setup
+Then use this to setup bridge networking and IP forwarding (necessary for pod networking in kubernetes):
+
+```bash
+./scripts/network.sh
+```
 
 Then use the following script to dsable swap and install kubeadm, kubectl, and kubelet:
 
