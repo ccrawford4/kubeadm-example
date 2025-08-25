@@ -44,6 +44,8 @@ git clone https://github.com/ccrawford4/k8s.git && cd k8s
 Then use these commands to modify the config file for versions 2.x:
 <https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd-systemd>
 
+Then use this to setup
+
 Then use the following script to dsable swap and install kubeadm, kubectl, and kubelet:
 
 ```bash
@@ -56,7 +58,8 @@ The  kubelet is now restarting every few seconds, as it waits in a crashloop for
 
 ```bash
 # Initialize the cluster (take special note of the output join command)
-sudo kubeadm init
+# Get your nodes subnet from ip route show (use the default addr)
+sudo kubeadm init --pod-network-cidr=<your nodes subnet>
 
 # Enable the non-root user to access the cluster
 mkdir -p $HOME/.kube
@@ -65,6 +68,8 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 # Now install the network plugin (lightweight flannel in this case)
 # Assuming you are in the root directory of the repo
+# Update the kube-flannel.yml file to match your pod network cidr
+# On line 94, "Network:"
 kubectl apply -f manifests/kube-flannel.yml
 ```
 

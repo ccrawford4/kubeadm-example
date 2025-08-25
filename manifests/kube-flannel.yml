@@ -91,7 +91,7 @@ data:
     }
   net-conf.json: |
     {
-      "Network": "10.244.0.0/16",
+      "Network": "<REPLACE WITH YOUR NODE SUBNET>",
       "EnableNFTables": false,
       "Backend": {
         "Type": "vxlan"
@@ -165,7 +165,6 @@ spec:
           args:
             - --ip-masq
             - --kube-subnet-mgr
-            - --pod-network-cidr=10.128.0.0/16 # Replace with your node's IP subnet
           resources:
             requests:
               cpu: "100m"
