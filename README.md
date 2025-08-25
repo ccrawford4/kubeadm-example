@@ -64,7 +64,8 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 # Now install the network plugin (lightweight flannel in this case)
-kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
+# Assuming you are in the root directory of the repo
+kubectl apply -f manifests/kube-flannel.yml
 ```
 
 ## Join the cluster
