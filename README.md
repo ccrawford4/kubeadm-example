@@ -62,19 +62,8 @@ The  kubelet is now restarting every few seconds, as it waits in a crashloop for
 
 ```bash
 # Initialize the cluster (take special note of the output join command)
-# Get your nodes subnet from ip route show (use the default addr)
-sudo kubeadm init --pod-network-cidr=<your nodes subnet>
-
-# Enable the non-root user to access the cluster
-mkdir -p $HOME/.kube
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-# Now install the network plugin (lightweight flannel in this case)
-# Assuming you are in the root directory of the repo
-# Update the kube-flannel.yml file to match your pod network cidr
-# On line 94, "Network:"
-kubectl apply -f manifests/kube-flannel.yml
+# Get your nodes IP address: ip route show (use the default addr)
+./scripts/start.sh <node-ip-address>
 ```
 
 ## Join the cluster
