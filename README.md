@@ -50,7 +50,7 @@ Then use this to setup bridge networking and IP forwarding (necessary for pod ne
 ./scripts/network.sh
 ```
 
-Then use the following script to dsable swap and install kubeadm, kubectl, and kubelet:
+Then use the following script to disable swap and install kubeadm, kubectl, and kubelet:
 
 ```bash
 ./scripts/install.sh
