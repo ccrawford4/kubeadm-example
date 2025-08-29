@@ -13,27 +13,27 @@ POD_CIDR="10.244.0.0/16"
 echo "Initializing Kubernetes control plane on node IP: $NODE_IP"
 
 cat <<EOF >/tmp/kubeadm-config.yaml
-  apiVersion: kubeadm.k8s.io/v1beta3
-  kind: ClusterConfiguration
-  apiServer:
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: ClusterConfiguration
+apiServer:
+  extraArgs:
+    cache-resync-interval: "30s"
+    watch-cache-sizes: "default=100,pods=1000,nodes=100"
+etcd:
+  local:
     extraArgs:
-      cache-resync-interval: "30s"
-      watch-cache-sizes: "default=100,pods=1000,nodes=100"
-  etcd:
-    local:
-      extraArgs:
-        max-request-bytes: "33554432"
-        quota-backend-bytes: "8589934592"
-        auto-compaction-retention: "8"
-  networking:
-    podSubnet: "$POD_CIDR"
-  ---
-  apiVersion: kubeadm.k8s.io/v1beta3
-  kind: InitConfiguration
-  localAPIEndpoint:
-    advertiseAddress: "$NODE_IP"
-  nodeRegistration:
-    name: "$NODE_NAME"
+      max-request-bytes: "33554432"
+      quota-backend-bytes: "8589934592"
+      auto-compaction-retention: "8"
+networking:
+  podSubnet: "$POD_CIDR"
+---
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: "$NODE_IP"
+nodeRegistration:
+  name: "$NODE_NAME"
 EOF
 
 # Replace kubeadm init command with:
