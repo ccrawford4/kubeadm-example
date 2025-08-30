@@ -95,8 +95,20 @@ You should see both nodes listed as part of the cluster:
 NAME       STATUS   ROLES           AGE     VERSION
 node-one   Ready    control-plane   10m     v1.30.14
 node-two   Ready    <none>          3m18s   v1.30.14
+```
 
-## TODOs:
+## Deploy the mario application
+
+```bash
+kubectl apply -f manifests/mario/mario-deployment.yaml
+kubectl apply -f manifests/mario/mario-service.yaml
+
+# Deploys the ingress controller
+kubectl apply -f manifests/ingress.yaml
+```
+
+## TODOs
+
 1. Add kuberetes ingress and allo external access to the mario service
 2. ArgoCD
 3. Lets make a generic helm chart and use it for other apps
