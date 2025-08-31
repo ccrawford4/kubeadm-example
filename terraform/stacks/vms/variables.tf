@@ -1,7 +1,3 @@
-variable "subnetwork" {
-  type = string
-}
-
 variable "email" {
   type = string
 }

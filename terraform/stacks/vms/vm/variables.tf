@@ -2,10 +2,10 @@ variable "device_name" {
   type = string
 }
 
-variable "subnetwork" {
+variable "email" {
   type = string
 }
 
-variable "email" {
+variable "subnetwork" {
   type = string
 }

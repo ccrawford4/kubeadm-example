@@ -12,7 +12,7 @@ resource "google_compute_instance" "this" {
     mode = "READ_WRITE"
   }
 
-  tags = ["k8s-project"]
+  tags = ["application"]
 
   can_ip_forward      = false
   deletion_protection = false
