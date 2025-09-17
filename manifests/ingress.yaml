@@ -7,13 +7,19 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: calum.run
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: mario-service
-                port:
-                  number: 80
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: home-service
+              port:
+                number: 8081
+        - path: /mario
+          pathType: Prefix
+          backend:
+            service:
+              name: mario-service
+              port:
+                number: 8080
