@@ -28,7 +28,7 @@ gcloud compute ssh --zone "us-central1-c" "node-one" --project <project-id>
 On each node install `git` and clone the repository:
 
 ```bash
-sudo apt-get -y install git
+sudo apt-get -y install git &&
 git clone https://github.com/ccrawford4/k8s.git && cd k8s
 ```
 
@@ -60,6 +60,8 @@ The  kubelet is now restarting every few seconds, as it waits in a crashloop for
 
 ## Creating a cluster with kubeadm
 
+On node-one (the control plane node), run:
+
 ```bash
 # Initialize the cluster (take special note of the output join command)
 # Get your nodes IP address: ip route show (use the default addr)
@@ -71,7 +73,7 @@ The  kubelet is now restarting every few seconds, as it waits in a crashloop for
 On node-two (the worker node), run the command that was output by `kubeadm init` on node-one (the control plane node). It will look something like this:
 
 ```bash
-kubeadm join <ip-addr>:6443 --token <token> \
+sudo kubeadm join <ip-addr>:6443 --token <token> \
         --discovery-token-ca-cert-hash <hash>
 ```
 
@@ -97,13 +99,23 @@ node-one   Ready    control-plane   10m     v1.30.14
 node-two   Ready    <none>          3m18s   v1.30.14
 ```
 
-## Deploy the mario application
+# Deploy the home application
+
+```
+kubectl apply -f manifests/home/home-deployment.yaml
+kubectl apply -f manifests/home/home-service.yaml
+```
+
+## Deploy the mario application and ingress
 
 ```bash
 kubectl apply -f manifests/mario/mario-deployment.yaml
 kubectl apply -f manifests/mario/mario-service.yaml
 
 # Deploys the ingress controller
+kubectl apply -f manifests/ingress-controller.yaml
+
+# Deploys the ingress resource
 kubectl apply -f manifests/ingress.yaml
 ```
 
