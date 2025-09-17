@@ -113,7 +113,7 @@ kubectl apply -f manifests/mario/mario-deployment.yaml
 kubectl apply -f manifests/mario/mario-service.yaml
 
 # Deploys the ingress controller
-kubectl apply -f manifests/ingress-controller.yaml
+kubectl apply -f manifests/nginx-ingress-controller.yaml
 
 # Deploys the ingress resource
 kubectl apply -f manifests/ingress.yaml
